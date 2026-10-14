@@ -104,7 +104,7 @@ void textoString()
   mensagem = mensagem + ", " + nome + " Bem vindo(a) ao curso de " + curso + ".";
   Serial.println(mensagem);
 
-  //* Tamanho da String 
+  //* Tamanho da String
   int tamanhoMensagem = mensagem.length();
   Serial.print("Tamanho da String em letras: ");
   Serial.println(tamanhoMensagem);
@@ -124,35 +124,84 @@ void textoString()
   Serial.println(posicaoTextoProcurado);
 
   //* Extraindo um texto de dentro da String.
-int inicioNomeCurso = posicaoTextoProcurado + 9; //? Posição da palavra curso + 9 caracteres.
-Serial.println(mensagem.substring(inicioNomeCurso, tamanhoMensagem));
+  int inicioNomeCurso = posicaoTextoProcurado + 9; //? Posição da palavra curso + 9 caracteres.
+  Serial.println(mensagem.substring(inicioNomeCurso, tamanhoMensagem));
 
-//* Substituindo um texto de dentro da String.
-mensagem.replace("Oi," , "Ola, tudo bem?");
-Serial.println(mensagem);
+  //* Substituindo um texto de dentro da String.
+  mensagem.replace("Oi,", "Ola, tudo bem?");
+  Serial.println(mensagem);
 
-//* Convertendo para maiúsculas.
-mensagem.toUpperCase();
-Serial.println(mensagem);
+  //* Convertendo para maiúsculas.
+  mensagem.toUpperCase();
+  Serial.println(mensagem);
 
-//* Convertendo para minúsculas.
-mensagem.toLowerCase();
-Serial.println(mensagem);
+  //* Convertendo para minúsculas.
+  mensagem.toLowerCase();
+  Serial.println(mensagem);
 
-//* Convertendo texto numérico para inteiro.
-String textoNumero = "123";
-int numero = textoNumero.toInt();
-Serial.println(numero * 2);
+  //* Convertendo texto numérico para inteiro.
+  String textoNumero = "123";
+  int numero = textoNumero.toInt();
+  Serial.println(numero * 2);
 
-//* Verificando se a String está vazia.
-String textoVazio = "";
-if(textoVazio.length() == 0)
-Serial.println("O texto está vazio.");
+  //* Verificando se a String está vazia.
+  String textoVazio = "";
+  if (textoVazio.length() == 0)
+    Serial.println("O texto está vazio.");
 
-//* Convertendo String para const char*.
-//? Isso é útil quando alguma biblioteca espera texto estilo C.
-const char* textoComoChar = mensagem.c_str();
-Serial.println(textoComoChar);
+  //* Convertendo String para const char*.
+  //? Isso é útil quando alguma biblioteca espera texto estilo C.
+  const char *textoComoChar = mensagem.c_str();
+  Serial.println(textoComoChar);
 
-//TODO printf
+  //* Montando texto.
+  char buffer[100];
+  char *local = "Sala de aula";
+  float temperatura = 26.4;
+  int umidade = 58;
+
+  //? %s = String
+  //? %c = char
+
+  //? %i ou %d = int
+  //? %u = unsigned int
+
+  //? %ld = long
+  //? %lu = unsigned long
+
+  //? %e = notação científica
+  //? %f = float
+  //? %g = float, formato mais curto
+
+  //? %x ou %X = hexadecimal minúsculo/maiúsculo.
+  //? %o = octal
+  //? %p = ponteiro
+  //? %% = o próprio %
+
+  //? \n = Mudança de linha.
+  //? \r = Retorno para o início de linha.
+  snprintf(buffer, sizeof(buffer), "%s | Temp.: %f | Umid.: %i %% \n\r", local, temperatura, umidade);
+  //? snprintf monta um texto dentro de um vetor de char.
+  //? Isso é útil quando você quer: salvar o texto em uma variável, mandar para o display, imprimir na serial, enviar por MQTT (IoT).
+
+  Serial.print(buffer);
+  Serial.print("Senai");
+
+  //* FLAG, LARGURA E PRECISÃO
+  //? %5d = imprime com largura mínima de 5 alinhado a direita [    3], [  100], [123456]
+  //? %-4d = imprime com largura mínima de 4 alinhado a esquerda [3   ], [100 ], [123456]
+  //? %03d = completa com zeros a esquerda [003]
+  //? %+d = sempre mostra o sinal [+3] [-3]
+  //? %.2f = 2 casas decimais em um float
+  //? %4.2f = largura mínima de 4 a direitac com 2 casas decimais
+  //? %02X = hexadecimal com 2 digitos [OF] [3A]
+  //? %#x = imprime o prefixo 0x [0x2a] [0xF]
+  //? %.3s = somente os 3 primeiros caracteres da string
+
+  //? %*d = largura passada como argumento
+  //? EXEMPLO:
+  //? int largura = 3;
+  //? int numero = 9;
+  //? snprintf(buffer, sizeof(buffer), "numero %*d", largura, numero)
+  //? Serial.print(buffer) -> [  9]
 }
